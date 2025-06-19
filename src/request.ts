@@ -1,24 +1,28 @@
-import axios from "axios";
-import { message} from "ant-design-vue";
+import axios from 'axios'
+import { message } from 'ant-design-vue'
+import router from "@/router";
+
 
 // 创建axios实例
 const myAxios = axios.create({
-  baseURL:"http://localhost:8123",
-  timeout:30000,
-  withCredentials:true,
+  baseURL: 'http://localhost:8123',
+  timeout: 30000,
+  withCredentials: true,
 })
-
-
 
 // https://axios-http.com/docs/interceptors
 // Add a request interceptor
-myAxios.interceptors.request.use(function (config) {
-  // Do something before request is sent
-  return config;
-}, function (error) {
-  // Do something with request error
-  return Promise.reject(error);
-});
+myAxios.interceptors.request.use(
+  function (config) {
+    // Do something before request is sent
+    return config
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error)
+  },
+)
+
 
 // 全局响应拦截器
 myAxios.interceptors.response.use(
@@ -35,6 +39,12 @@ myAxios.interceptors.response.use(
         window.location.href = `/user/login?redirect=${window.location.href}`
       }
     }
+    if (data.code === 40101) {
+      router.push('/noAuth')
+    }
+    if (data.code === 50000) {
+      router.push('/ErrorPage')
+    }
     return response
   },
   function (error) {
@@ -44,4 +54,4 @@ myAxios.interceptors.response.use(
   },
 )
 
-export default myAxios;
+export default myAxios

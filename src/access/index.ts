@@ -3,6 +3,9 @@ import { useLoginUserStore } from '@/stores/useLoginUserStore'
 import ACCESS_ENUM from './accessEnum'
 import checkAccess from './checkAccess'
 
+/**
+ *  路由守卫
+ */
 // 是否为首次获取登录用户
 let firstFetchLoginUser = true
 
@@ -16,7 +19,7 @@ router.beforeEach(async (to, from, next) => {
     loginUser = loginUserStore.loginUser
     firstFetchLoginUser = false
   }
-  console.log('登陆用户信息', loginUser)
+  //console.log('登陆用户信息', loginUser)
   const needAccess = (to.meta?.access as string) ?? ACCESS_ENUM.NOT_LOGIN
   // 要跳转的页面必须要登陆
   if (needAccess !== ACCESS_ENUM.NOT_LOGIN) {

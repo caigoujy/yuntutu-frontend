@@ -8,7 +8,8 @@
         <router-view />
       </a-layout-content>
       <a-layout-footer class="footer">
-        <a href="" target="_blank"> 云图库前后端代码 </a>
+        <a href="https://github.com/caigoujy/yuntutu-backend" target="_blank"> 云图库后端代码&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        <a href="https://github.com/caigoujy/yuntutu-frontend" target="_blank"> 云图库前端代码 </a>
       </a-layout-footer>
     </a-layout>
   </div>

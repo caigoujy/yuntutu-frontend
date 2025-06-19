@@ -5,7 +5,7 @@
       layout="inline"
       :model="searchParams"
       @finish="doSearch"
-      style="margin-bottom: 20px; margin-top: 10px;margin-left: 50px"
+      style="margin-bottom: 20px; margin-top: 10px; margin-left: 50px"
     >
       <a-form-item label="账号">
         <a-input v-model:value="searchParams.userAccount" placeholder="输入账号" allow-clear />
@@ -60,12 +60,12 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { SmileOutlined, DownOutlined } from '@ant-design/icons-vue'
+import { SmileOutlined } from '@ant-design/icons-vue'
 import { deleteUserUsingPost, listUserVoByPageUsingPost } from '@/api/userController'
 import { computed, onMounted, reactive, ref } from 'vue'
 import { message } from 'ant-design-vue'
 import dayjs from 'dayjs'
-import * as constants from 'constants'
+import { useLoginUserStore } from '@/stores/useLoginUserStore'
 
 const columns = [
   {
@@ -154,16 +154,17 @@ const pagination = computed(() => {
   }
 })
 
+const loginUserStore = useLoginUserStore()
 // 获取数据
 const fetchData = async () => {
   const res = await listUserVoByPageUsingPost({
     ...searchParams,
   })
+  console.log("res.data.data:" + res.data.data)
+    // 如果请求成功，则将数据赋值给dataList
   if (res.data.data) {
     dataList.value = res.data.data.records ?? []
     total.value = res.data.data.total ?? 0
-  } else {
-    message.error('获取数据失败，' + res.data.message)
   }
 }
 
@@ -179,7 +180,7 @@ const doTableChange = (page: any) => {
   fetchData()
 }
 </script>
-<style>
+<style scoped>
 .table {
   width: 95%;
   margin-left: 3%;
